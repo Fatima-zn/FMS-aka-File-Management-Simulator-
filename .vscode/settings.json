@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "DARKGRAY",
     "lgdi",
     "libraylib",
     "libraylibdll",
@@ -8,8 +9,10 @@
     "lraylibdll",
     "lstdc",
     "lwinmm",
+    "RAYGUI",
     "Raylib",
     "raymath",
+    "RAYWHITE",
     "rlgl"
   ],
   "C_Cpp_Runner.cCompilerPath": "gcc",
