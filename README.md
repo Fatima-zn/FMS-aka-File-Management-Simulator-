@@ -19,7 +19,8 @@
 
 3. **Run the following command to compile the main.c**:
 
-   gcc main.c -o main -I./raylib -L./raylib -lraylibdll -lopengl32 -lgdi32 -lwinmm -lstdc++ -lm -lpthread
+   gcc main.c ms.c file_manipulation.c -o main -I./raylib -L./raylib -lraylibdll -lopengl32 -lgdi32 -lwinmm -lstdc++ -lm -lpthread
 
 4. **Run the executable**:
    ./main
+

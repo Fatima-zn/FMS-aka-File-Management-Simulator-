@@ -7,9 +7,6 @@
 #include <stdbool.h>
 
 
-void defragmentation(FILE *ms, char fileName[]);
-void UpdateMeta(FILE* ms, char curr_name[], char new_name[],int bloc,int record, int first_address, int last_address, int Add_Addresses[],int added_a, int delete_Addresses[],int deleted_a, int delete);
-
 
 
 MetaBuffer* ElementToMetaBufferPart(Element meta){
@@ -274,7 +271,7 @@ void ChargeFile(FILE* ms, FILE* inputFile, int size, int nbr_e, int* addressList
 int Create_file(FILE* ms,FILE* inputFile, char name[], int ne, int contigue, int ordered){ //contigue(1: contigue, 0: chainee) ordered(1: ordered, 0: not)
     int size = (int)ceil((double) ne/FB); //in terms of Bloc
     int* l = CheckMSavailability(ms, size, contigue);
-    int* ptr = Get_MetaData(ms, name);
+    MetaBuffer* ptr = Get_MetaData(ms, name);
     if(l){
         if(ptr == NULL){
             Create_MetaData(ms, name, size, ne,l[0],l[size-1], contigue, ordered);
