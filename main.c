@@ -83,6 +83,11 @@ int main(){
     FILE* ms = fopen("ms.bin", "rb+");
     if(ms == NULL){
         printf("Error opening file!\n");
+        FILE* ms = fopen("ms.bin", "wb+");
+        if(ms == NULL){
+            printf("Error opening file!\n");
+            return 1;
+        }
     }
 
 
@@ -872,6 +877,7 @@ void addFile(FILE* ms, FileTile file[], int *nbr_file, char data[][22], int *let
             if(*nbr_file < 15 && allFieldsFilled && isUploaded) {
                 //Back part
                 isCreated = Create_file(ms, fopen(filePath, "r"), data[0], atoi(data[1]), atoi(data[2]), atoi(data[3]));
+                printf("nbr_file: %d, allFieldsFilled: %d, isUploaded: %d\n", *nbr_file, allFieldsFilled, isUploaded);
                 isDrawn = true;
 
 
