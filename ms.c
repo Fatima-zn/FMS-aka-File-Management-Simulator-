@@ -395,61 +395,6 @@ void someUpdate(FILE* ms, int addressOfBloc, int type){
 
 
 
-//MAIN
-/*
-int main(){
-    FILE *MS = fopen("ms.bin", "rb+");
-    if(MS == NULL){
-        printf("Error opening file ms.bin\n");
-        return 1;
-    }
-
-
-     
-    deleteMS(MS);
-    rewind(MS);
-    addBloc(MS, 4);
-    someUpdate(MS, 4);
-    addBloc(MS, 7);
-    someUpdate(MS, 7);
-    addBloc(MS, 15);
-    someUpdate(MS, 15);
-    addBloc(MS, 21);
-    someUpdate(MS, 21);
-    addBloc(MS, 22);
-    someUpdate(MS, 22);
-
-  
-    Compactage(MS);
-
-
-
-    rewind(MS);
-    print_MS(MS);
-    rewind(MS);
-
- 
-
-
-
-
-
-    AllocationTableBuffer* buffer = UploadAllocationTableToMC(MS);
-
-    for(int i = 0; i < NBR_BLOC; i++){
-        printf("nbr_bloc : %d\t\t\t", buffer->allocationTable[i].nbr_bloc);
-        printf("State : %d\n", buffer->allocationTable[i].state);
-    }
- 
- 
-
-
-
-    fclose(MS);
-    return 0;
-}
-*/
-
 
 
 

@@ -145,7 +145,7 @@ void defragmentation_Meta(FILE* ms){
                     fwrite(&Buffer0, sizeof(Bloc), 1, ms);
                     writeIndex++;
                     ElementCounter = 0; 
-                    memset(&Buffer0, 0, sizeof(Buffer0));  //To Clear Buffer0
+                    memset(&Buffer0, 0, sizeof(Buffer0)); //To Clear Buffer0
                 }
             }
         }
@@ -603,7 +603,6 @@ void PhysicalSuppression(FILE* ms, char filename[], int id){
             fwrite(&lastBloc, sizeof(Bloc), 1, ms);
 
             meta->bloc--;
-            //lastBloc.nbr_element--;
             
             int temp[2] = {meta->last_address, meta->last_address};
             MAJTable(ms, 1, 2, temp, 0);
@@ -655,9 +654,9 @@ void defragmentation(FILE* ms, char fileName[]){
     int total_recordCounter = 0;
     int total_WrittenBlocCounter = 0;
     int ElementCounter = 0; 
-    Bloc Buffer0 = {}; //Initialization (empty bloc)
+    Bloc Buffer0 = {};
     if (metaBuffer->contigue) {
-        int writeIndex = start;  //Index for writing defragmented blocks
+        int writeIndex = start; //Index for writing defragmented blocks
 
         for (int i = 0; i < metaBuffer->bloc; i++) {
             fseek(ms, sizeof(Bloc) * (start + i), SEEK_SET);
@@ -762,7 +761,6 @@ void defragmentation(FILE* ms, char fileName[]){
                         }
                         memset(&Buffer0, 0, sizeof(Bloc)); 
                     }
-                    //if(Buffer.nbr_element == j) break;
                 } 
             }
             if(total_recordCounter == metaBuffer->record) break;  
@@ -787,7 +785,6 @@ void defragmentation(FILE* ms, char fileName[]){
             fwrite(&Buffer0, sizeof(Bloc), 1, ms);
         }
         int temp0[1] = {};
-        //int temp1[1] = {};
         UpdateMeta(ms, metaBuffer->name, "", BlocCounter, -1, -1, nexts[BlocCounter-1], temp0, 0, deleted, metaBuffer->bloc-BlocCounter, 0);           
     } 
 } //last blocs pointers not deleted
@@ -967,9 +964,9 @@ int Adding_Contiguous_2(FILE* ms, char name[], int bloc, int record,int first_ad
     int total_recordCounter = 0;
     int total_WrittenBlocCounter = 0;
     int ElementCounter = 0; 
-    Bloc Buffer0 = {}; //Initialization (empty bloc)
+    Bloc Buffer0 = {};
     int added = 0;
-    int writeIndex = start;  //Index for writing defragmented blocks
+    int writeIndex = start;
 
     for (int i = 0; i < bloc; i++) {
         fseek(ms, sizeof(Bloc) * (start + i), SEEK_SET);
@@ -996,7 +993,7 @@ int Adding_Contiguous_2(FILE* ms, char name[], int bloc, int record,int first_ad
                         total_WrittenBlocCounter++;
                         writeIndex++;
                         ElementCounter = 0; 
-                        memset(&Buffer0, 0, sizeof(Buffer0));  //To Clear Buffer0
+                        memset(&Buffer0, 0, sizeof(Buffer0)); 
                     }
                 }
                 Buffer0.element[ElementCounter].ID = Buffer.element[j].ID;
@@ -1014,7 +1011,7 @@ int Adding_Contiguous_2(FILE* ms, char name[], int bloc, int record,int first_ad
                     total_WrittenBlocCounter++;
                     writeIndex++;
                     ElementCounter = 0; 
-                    memset(&Buffer0, 0, sizeof(Buffer0));  //To Clear Buffer0
+                    memset(&Buffer0, 0, sizeof(Buffer0)); 
                 }}
             }
         }
@@ -1022,7 +1019,8 @@ int Adding_Contiguous_2(FILE* ms, char name[], int bloc, int record,int first_ad
         if (total_recordCounter == record) break;
     }
 
-    //Write remaining elements in Buffer0 if not empty
+
+
     if(!added){
         Buffer0.element[ElementCounter].ID = ID;
         strcpy(Buffer0.element[ElementCounter].row, data);
@@ -1040,19 +1038,16 @@ int Adding_Contiguous_2(FILE* ms, char name[], int bloc, int record,int first_ad
         total_WrittenBlocCounter++;
         writeIndex++;
     }
-    //CHANGE HERE: remove the nbr of writes in fwrite, and replace writeIndex + 1 with writeIndex in fseek, and wrap this part with a condition 
     
     memset(&Buffer0, 0, sizeof(Buffer0));
     Buffer0.next = -1;
     Buffer0.last = -1;
     fseek(ms, sizeof(Bloc) * writeIndex, SEEK_SET);
     for(int i = writeIndex; i <= last_address;i++) fwrite(&Buffer0, sizeof(Bloc), 1, ms);
-    //(metaBuffer->last_address - writeIndex)
 
 
 
 
-    //Update Allocation Table
     int temp[2];
     temp[0] = writeIndex;
     temp[1] = last_address;
@@ -1060,7 +1055,6 @@ int Adding_Contiguous_2(FILE* ms, char name[], int bloc, int record,int first_ad
 
 
     
-    //Update MetaData
     int temp0[1] = {};
     int temp1[1] = {};
     UpdateMeta(ms, name, "", total_WrittenBlocCounter, record + 1, -1, writeIndex - 1, temp0, 0, temp1, 0, 0);
@@ -1182,12 +1176,12 @@ int Insertion_Contigue_Ordered(FILE* ms, char name[], int ID, char data[], MetaB
         Bloc Buffer[metaBuffer->bloc + 1];
         fseek(ms, metaBuffer->first_address*sizeof(Bloc),SEEK_SET);
         fread(&Buffer, sizeof(Bloc), metaBuffer->bloc, ms);
-        //MAJ blocs to 0
+
         int temp[2];
         temp[0] = metaBuffer->first_address;
         temp[1] = metaBuffer->last_address;
         MAJTable(ms, 1, 2, temp, 0);
-        //Check MS
+
         int* ptr = CheckMSavailability(ms, metaBuffer->bloc + 1, 1);
         return Adding_Contiguous_1(ms,name, Buffer, ptr, metaBuffer->bloc + 1, ID, data);
     }else return -1;
@@ -1200,7 +1194,7 @@ int Adding_Chainnee_1(FILE* ms, char name[], int ID, char data[], int first_addr
     Bloc Buffer;
     int total_recordCounter = 0;
     int ElementCounter = 0; 
-    Bloc Buffer0 = {}; //Initialization (empty bloc)
+    Bloc Buffer0 = {};
     int BlocCounter = 0;
     int nexts[bloc];
     nexts[0] = start;
@@ -1259,7 +1253,6 @@ int Adding_Chainnee_1(FILE* ms, char name[], int ID, char data[], int first_addr
                         memset(&Buffer0, 0, sizeof(Bloc)); 
                     }
                 }
-                //if(Buffer.nbr_element == j) break;
             } 
         }
         if(total_recordCounter == record) break;  
